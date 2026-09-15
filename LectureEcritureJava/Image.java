@@ -55,4 +55,27 @@ public class Image {
 
         writer.close();
     }
+
+    /**
+     * Sauvegarde l'image au format binaire (P6)
+     */
+    public void save_bin(String filename) throws IOException {
+        FileWriter writer = new FileWriter(filename);
+        byte[] tableau = new byte[3];
+
+        // En-tête du fichier PPM
+        writer.write("P6\n");
+        writer.write(width + " " + height + "\n");
+        writer.write("255\n");
+
+        // Écriture des valeurs RGB
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                // TODO RGB
+            }
+        }
+        write.write("\n");
+
+        writer.close();
+    }
 }
