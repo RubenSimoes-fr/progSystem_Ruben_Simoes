@@ -1,14 +1,14 @@
 public class Gradient {
     public static void main(String[] args) {
-        int largeur = 200;
-        int hauteur = 100;
+        int width = 200;
+        int height = 100;
         Image img = new Image(200, 100);
 
         // Génération du dégradé de bleu
-        for (int y = 0; y < hauteur; y++) {
-            for (int x = 0; x < largeur; x++) {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
                 // Interpolation linéaire du bleu entre 0 et 255 selon x
-                int bleu = (x * 255) / (largeur - 1);
+                int bleu = (x * 255) / (width - 1);
                 img.setPixel(x, y, 0, 0, bleu);
             }
         }
