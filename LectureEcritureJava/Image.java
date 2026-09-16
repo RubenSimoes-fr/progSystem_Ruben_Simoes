@@ -71,7 +71,13 @@ public class Image {
         // Écriture des valeurs RGB
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                // TODO RGB
+                tableau[0] = pixels[y][x][0];
+                tableau[1] = pixels[y][x][1];
+                tableau[2] = pixels[y][x][2];
+
+                writer.write(tableau[0]);
+                writer.write(tableau[1]);
+                writer.write(tableau[2]);
             }
         }
         write.write("\n");
