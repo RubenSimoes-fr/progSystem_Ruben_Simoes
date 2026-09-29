@@ -40,7 +40,6 @@ public class MemoryManager {
     }
 
     private void writeSuperblock() {
-        // TODO:
         // Utiliser Utils pour écrire les métadonnées.
 
         Utils.writeString(
@@ -73,4 +72,50 @@ public class MemoryManager {
     public byte[] getFilesystemMemory() {
         return memory;
     }
+
+    public boolean setBlockUsed(int blockNumber, boolean used) {
+        if (blockNumber < 0 ||
+                blockNumber >= NUM_BLOCKS) {
+                return false;
+        }
+
+        int byteIndex = blockNumber / 8;
+        int bitPosition = blockNumber % 8;
+        int offset = BITMAP_OFFSET + byteIndex;
+
+        if (used) {
+                memory[offset] |= (byte) (0x01 << bitPosition);
+        } else {
+                memory[offset] |= (byte) ~(0x01 << bitPosition);
+        }
+
+        return true;
+        }
+
+        public int isBlockUsed(int blockNumber) {
+
+        if (blockNumber < 0 ||
+                blockNumber >= NUM_BLOCKS) {
+                return -1;
+        }
+
+        int byteIndex = blockNumber / 8;
+        int bitPosition = blockNumber % 8;
+        int offset = BITMAP_OFFSET + byteIndex;
+
+        return (int) (memory[offset] >> bitPosition & 0x01);
+        }
+
+        public int allocateBlock() {
+
+        int i = 129;
+        while (i < NUM_BLOCKS && isBlockUsed(i) != 0) {
+                i++;
+        }
+        if (i >= NUM_BLOCKS) {
+                return -1;
+        }
+        setBlockUsed(i,true);
+        return -1;
+        }
 }
