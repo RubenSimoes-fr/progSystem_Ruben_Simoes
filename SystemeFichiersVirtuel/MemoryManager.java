@@ -31,10 +31,10 @@ public class MemoryManager {
 
     private void initializeFilesystem() {
         writeSuperblock();
-        for (int i = 0; i <= 128; i++) {
+        for (int i = 0; i < 128; i++) {
             int indexOctet = BITMAP_OFFSET + (i / 8);
             int indexBit = i % 8;
-            memory[indexOctet] |= (1 << (7 - indexBit));
+            memory[indexOctet] |= (byte) (0x01 << indexBit);
         }
 
     }
@@ -74,8 +74,7 @@ public class MemoryManager {
     }
 
     public boolean setBlockUsed(int blockNumber, boolean used) {
-        if (blockNumber < 0 ||
-                blockNumber >= NUM_BLOCKS) {
+        if (blockNumber < 0 || blockNumber >= NUM_BLOCKS) {
                 return false;
         }
 
@@ -86,9 +85,8 @@ public class MemoryManager {
         if (used) {
                 memory[offset] |= (byte) (0x01 << bitPosition);
         } else {
-                memory[offset] |= (byte) ~(0x01 << bitPosition);
+                memory[offset] &= (byte) ~(0x01 << bitPosition);
         }
-
         return true;
         }
 
@@ -116,6 +114,6 @@ public class MemoryManager {
                 return -1;
         }
         setBlockUsed(i,true);
-        return -1;
+        return i;
         }
 }
